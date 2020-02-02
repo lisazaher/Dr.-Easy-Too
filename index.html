@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Welcome to Firebase Hosting</title>
+
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/7.8.0/firebase-app.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/7.8.0/firebase-auth.js"></script>
+    <script defer src="/__/firebase/7.8.0/firebase-database.js"></script>
+    <script defer src="/__/firebase/7.8.0/firebase-messaging.js"></script>
+    <script defer src="/__/firebase/7.8.0/firebase-storage.js"></script>
+    <!-- initialize the SDK after all desired features are loaded -->
+    <script defer src="/__/firebase/init.js"></script>
+    <script defer src="require.js"></script>
+    <style media="screen">
+      body { background: #7bcbb9; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
+      #message { background: white; max-width: 450px; margin: 0px auto 16px; padding: 32px 24px; border-radius: 3px; }
+      h2 { color: #ffffff; font-weight: bold; font-size: 50px; margin-top:20px; margin-bottom:20px; top:50% }
+      #message h1 { font-size: 38px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;font-weight: bold;}
+      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
+      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
+      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
+      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
+      @media (max-width: 600px) {
+        body, #message { margin-top: 0; background: white; box-shadow: none; }
+        body { border-top: 16px solid #ffa100; }
+      }
+    </style>
+  </head>
+  <body>
+    <center><h2>Patient Report</h2></center>
+    <div id="message">
+        <h1 id="name"></h1>
+        <p>Details of Diagnosis:</p>
+        <p id="explanation"></p>
+        <h1 id="treatment"></h1>
+        <p>Details of Treatment Plan:</p>
+        <p id="treatment_plan"></p>
+    </div>
+    <center>
+        <div><a href="https://github.com/lisazaher/mchacks2020">
+          <img alt="Github" src="https://www.stickpng.com/assets/images/5847f98fcef1014c0b5e48c0.png"
+          width="20" height="20">
+       </a>
+      </div>
+       <div>
+       <a href="https://devpost.com/software/dr-easy-too">
+        <img alt="Devpost" src="https://i.ya-webdesign.com/images/postit-vector-black-5.png"
+        width="20" height="20">
+     </a>
+    </div>
+    </center>
+    
+   
+    <script>
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', "https://firestore.googleapis.com/v1beta1/projects/hackdata-55e47/databases/(default)/documents/diseases/Last%20Appointment%20Information", true);
+      xhr.send();
+ 
+      xhr.onreadystatechange = processRequest;
+
+      function processRequest(e) {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+          var response = JSON.parse(xhr.responseText);
+          //alert(response.fields.name.stringValue);
+          document.getElementById('name').innerHTML = response.fields.name.stringValue;
+          document.getElementById('explanation').innerHTML = response.fields.explanation.stringValue;
+          document.getElementById('treatment').innerHTML = response.fields.treatment.stringValue;
+          document.getElementById('treatment_plan').innerHTML = response.fields.treatment_plan.stringValue;
+        }
+      }
+    </script>
+  </body>
+</html>

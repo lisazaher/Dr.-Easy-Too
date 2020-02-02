@@ -1,0 +1,24 @@
+curl -X POST \
+-H "Content-Type: application/json" \
+
+-d'{
+"fields": {
+    "Field1": {
+        "stringValue": "'"$var1"'"
+    },
+"Field2": {
+"stringValue": "'"$var2"'"
+},
+"Field3": {
+"stringValue": "$var3"
+}
+}
+}'
+
+https://firestore.googleapis.com/v1beta1/projects/hackdata-55e47/databases/(default)/documents/diseases
+
+curl -X POST \
+-H "Content-Type: application/json" \
+-d'{"fields": {"name" : {"stringValue" : "foo"}}}' \
+"https://firestore.googleapis.com/v1beta1/projects/hackdata-55e47/databases/(default)/documents/diseases"
+
