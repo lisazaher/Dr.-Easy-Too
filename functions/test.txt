@@ -1,0 +1,9 @@
+axios.get(`https://firestore.googleapis.com/v1/projects/<PROJECTIDHERE>/databases/(default)/documents/<COLLECTIONNAME>`)
+     .then(response => { 
+         console.log(response); 
+        })
+        .catch(error => { 
+            console.log(error); 
+        });
+
+        https://firestore.googleapis.com/v1/projects/hackdata-55e47/databases/(default)/documents/diseases

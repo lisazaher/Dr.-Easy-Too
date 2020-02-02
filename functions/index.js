@@ -44,6 +44,19 @@ const functions = require('firebase-functions');
 // Instantiate the Dialogflow client.
 const app = dialogflow({debug: true});
 
+//admin stuff
+const admin = require('firebase-admin');
+
+/*
+admin.initializeApp({
+    credential: admin.credential.applicationDefault(),
+    databaseURL: 'https://hackdata-55e47.firebaseio.com'
+  });*/
+
+admin.initializeApp();
+const db = admin.firestore();
+const collectionRef = db.collection('diseases');
+
 // Handle the Dialogflow intent named 'Default Welcome Intent'.
 app.intent('Default Welcome Intent', (conv) => {
     conv.add('I\'m ready to help. Please begin with the patient\'s diagnosis.');
@@ -72,6 +85,16 @@ app.intent('begin_treatment_plan', (conv, {treatment}, {time}) => { //{treatment
             break;
         }
     }
+
+    let data = {
+        name: diseases[i],
+        explanation: expl[i],
+        treatment: treatment_options[j],
+        treatment_plan: treatment_plan[j],
+    };
+      
+    // Add a new document in collection "cities" with ID 'LA'
+    let setDoc = collectionRef.doc('Last Appointment Information').set(data);   
     conv.close(treatment_plan[j]);
 });
 
