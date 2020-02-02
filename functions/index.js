@@ -33,7 +33,8 @@ const treatment_plan = ['get fucked. ;)','There is no cure to herpes simplex. It
 'Surgery will be required to remove the tumour. We can look at scheduling the date now, but the wait list is usually a few years.',
 'Taking antibiotics '];
 
-var i = 0, j = 0;
+var i = 0;
+var j = 0;
 // Import the Dialogflow module from the Actions on Google client library.
 const {dialogflow, Permission, Suggestions} = require('actions-on-google');
 
@@ -62,24 +63,15 @@ app.intent('begin_diagnosis', (conv, {disease}) => {
   });
 
 app.intent('begin_diagnosis - yes', (conv) => {
-    //transcribe text
-    /*for (var i = 0; i < diseases.length; i++) {
-        if (diseases[i] === disease) {
-            //conv.user.storage.treatment_plan =  disease;
-            conv.add(treatment_plan[i]);
-            break;
-        }
-    }&*/
     conv.ask('Ok, please begin describing the treatment.');
 });
 
 app.intent('begin_treatment_plan', (conv, {treatment}, {time}) => { //{treatment}, {time}
-    /*for (; j < treatment_plan.length; j++) {
-        if (treatment_plan[j] === treatment) {
+    for (; j < treatment_options.length; j++) {
+        if (treatment_options[j] == treatment) {
             break;
         }
-    }*/
-    conv.add(treatment + ' and ' + time);
+    }
     conv.close(treatment_plan[j]);
 });
 
